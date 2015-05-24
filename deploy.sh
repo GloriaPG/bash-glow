@@ -1,7 +1,7 @@
 #!/bin/bash
 #author: Gloria Palma Gonzalez ing.gloriapalmagonzalez@gmail.com
 #desc: Script for deploy callcenter or backoffice.
-#Instrunctions:
+#Instructions:
 # For execute this script you should pass  parameter
 # 1.- The application for deploy, bc it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
 # example : ./deploy.sh bc
@@ -36,8 +36,8 @@ case "$1" in
 		ls
 		#Set permits to the wars
 		echo "Setting permits tho the wars"
-		chmod -R 777 callcenter.war
-		chmod -R 777 backoffice.war
+		chown root:root callcenter.war
+		chown root:root backoffice.war
 		ls -la
 		#Copy the wars in webapps
 		echo "Copiying wars in /usr/local/tomcat7/webapps"
@@ -69,7 +69,7 @@ case "$1" in
 		ls
 		#Set permits to the wars
 		echo "Setting permits tho the wars"
-		chmod -R 777 backoffice.war
+		chown root:root backoffice.war
 		ls -la
 		#Copy the wars in webapps
 		echo "Copiying war in /usr/local/tomcat7/webapps"
@@ -99,7 +99,7 @@ case "$1" in
 		ls
 		#Set permits to the wars
 		echo "Setting permits tho the war"
-		chmod -R 777 callcenter.war
+		chown root:root callcenter.war
 		ls -la
 		#Copy the wars in webapps
 		echo "Copiying wars in /usr/local/tomcat7/webapps"
