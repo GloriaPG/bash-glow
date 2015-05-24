@@ -3,8 +3,8 @@
 #desc: Script for deploy callcenter or backoffice.
 #Instructions:
 # For execute this script you should pass  parameter
-# 1.- The application for deploy, bc it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
-# example : ./deploy.sh bc
+# 1.- The application for deploy, cb it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
+# example : ./deploy.sh cb
 echo "Starting deploy ... glow glow"
 #init vars
 FILE="$(date +"%Y-%m-%d")-dump.sql.gz"
@@ -19,7 +19,7 @@ chmod 776 ./dumps/"$FILE"
 #Bakup apps
 cd /usr/local/tomcat7/webapps/
 case "$1" in
-    "bc")
+    "cb")
 		echo 'Creating backups callcenter and backoffice'
         #Backups apps
 		mv  callcenter.war callcenter-"$BACKUPSNAME"
@@ -84,6 +84,7 @@ case "$1" in
 		#Let me see de log babe
 		echo "Hey! You should see the logs"
 		tail -f /usr/local/tomcat7/logs/catalina.out
+		;;
     "c")
         echo 'Creating backup callcenter'
         #Backups apps
@@ -98,7 +99,7 @@ case "$1" in
 		cd
 		ls
 		#Set permits to the wars
-		echo "Setting permits tho the war"
+		echo "Setting permits to the war"
 		chown root:root callcenter.war
 		ls -la
 		#Copy the wars in webapps
@@ -118,10 +119,10 @@ case "$1" in
         ;;
     *)
         echo "You should introduce the parameter for deploy application:"
-        echo "bc : is for deploy in callcenter and backoffice"
+        echo "cb : is for deploy in callcenter and backoffice"
         echo "c : is for deploy in callcenter"
         echo "b : is for deploy in callcenter"
-        echo "Example : ./deploy.sh bc"
+        echo "Example : ./deploy.sh cb"
         ;; 
 esac
 
