@@ -5,16 +5,24 @@
 # For execute this script you should pass  parameter
 # 1.- The application for deploy, cb it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
 # example : ./rollback.sh cb
-echo "Starting rollback ... glow glow"
+figlet "STARTING ROLLBACK"
+figlet -f digital "Author: Gloria Palma Gonzalez"
 #init vars
 BACKUPSNAME="$(date +"%Y-%m-%d")"
-#Stop service apache for make the backups database
-echo "Go to stop service tomcat"
-service tomcat stop
-#Go to directory that contains apps
-echo 'Go to directory webapps'
-cd /usr/local/tomcat7/webapps/
-ls
+
+#Validation parameter null
+if [ "${1}" != "" ]; then
+  	if [ "${1}" == "cb" || "${1}" == "c" || "${1}" == "b"]; then
+		#Stop service apache for make the backups database
+		echo "Go to stop service tomcat"
+		service tomcat stop
+		#Go to directory that contains apps
+		echo 'Go to directory webapps'
+		cd /usr/local/tomcat7/webapps/
+		ls
+	fi
+fi
+
 case "$1" in
     "cb")
 		echo 'Remove wars callcenter and backoffice'

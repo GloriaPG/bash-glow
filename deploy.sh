@@ -5,7 +5,9 @@
 # For execute this script you should pass  parameter
 # 1.- The application for deploy, cb it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
 # example : ./deploy.sh cb
-echo "Starting deploy ... glow glow"
+#Welcome message
+figlet "STARTING DEPLOY"
+figlet -f digital "Author: Gloria Palma Gonzalez"
 #init vars
 FILE="$(date +"%Y-%m-%d")-dump.sql.gz"
 BACKUPSNAME="$(date +"%Y-%m-%d")"
