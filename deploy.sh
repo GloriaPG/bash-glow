@@ -9,15 +9,22 @@ echo "Starting deploy ... glow glow"
 #init vars
 FILE="$(date +"%Y-%m-%d")-dump.sql.gz"
 BACKUPSNAME="$(date +"%Y-%m-%d")"
-#Stop service apache for make the backups database
-echo "Go to stop service tomcat"
-service tomcat stop
-#Make de bakups database
-echo "Go to make dumps"
-mysqldump --user=ventakmp --password=ws4.=Rt5gSd34 ventakmpscc >  ./dumps/"$FILE"
-chmod 776 ./dumps/"$FILE"
-#Bakup apps
-cd /usr/local/tomcat7/webapps/
+
+#Validation parameter null
+if [ "${1}" != "" ]; then
+  	if [ "${1}" == "cb" || "${1}" == "c" || "${1}" == "b"]; then
+  		#Stop service apache for make the backups database
+		echo "Go to stop service tomcat"
+		service tomcat stop
+		#Make de bakups database
+		echo "Go to make dumps"
+		mysqldump --user=ventakmp --password=ws4.=Rt5gSd34 ventakmpscc >  ./dumps/"$FILE"
+		chmod 776 ./dumps/"$FILE"
+		#Bakup apps
+		cd /usr/local/tomcat7/webapps/
+	fi
+fi
+
 case "$1" in
     "cb")
 		echo 'Creating backups callcenter and backoffice'

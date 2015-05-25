@@ -11,8 +11,10 @@ BACKUPSNAME="$(date +"%Y-%m-%d")"
 #Stop service apache for make the backups database
 echo "Go to stop service tomcat"
 service tomcat stop
-#Bakup apps
+#Go to directory that contains apps
+echo 'Go to directory webapps'
 cd /usr/local/tomcat7/webapps/
+ls
 case "$1" in
     "cb")
 		echo 'Remove wars callcenter and backoffice'
@@ -39,7 +41,7 @@ case "$1" in
 		tail -f /usr/local/tomcat7/logs/catalina.out
         ;;
     "b")
-		echo 'Remove wars backoffice'
+		echo 'Remove war backoffice'
         #Remove wars
         rm -rf backoffice.war 
         ls
