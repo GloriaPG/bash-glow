@@ -93,7 +93,6 @@ while getopts ":cb:c:b" opt; do
         #Copy the wars in webapps
         echo "Copiying wars in /usr/local/tomcat7/webapps"
         cp ./callcenter.war  /usr/local/tomcat7/webapps
-                cp ./backoffice.war  /usr/local/tomcat7/webapps
                 cd /usr/local/tomcat7/webapps
                 ls
                 cd
