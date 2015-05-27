@@ -5,14 +5,13 @@
 # For execute this script you should pass  parameter
 # 1.- The application for deploy, cb it's for deploy in backoffice and callcenter, c it's for deploy only callcenter and b it's for deploy only backoffice
 # example : ./rollback.sh cb
-figlet "STARTING ROLLBACK"
-figlet -f digital "Author: Gloria Palma Gonzalez"
+echo "Starting rollback ... glow glow"
 #init vars
 BACKUPSNAME="$(date +"%Y-%m-%d")"
 
-#Validation parameter null
-if [ "${1}" != "" ]; then
-  	if [ "${1}" == "cb" || "${1}" == "c" || "${1}" == "b"]; then
+while getopts ":cb:c:b" opt; do
+  case $opt in
+    cb)
 		#Stop service apache for make the backups database
 		echo "Go to stop service tomcat"
 		service tomcat stop
@@ -20,12 +19,7 @@ if [ "${1}" != "" ]; then
 		echo 'Go to directory webapps'
 		cd /usr/local/tomcat7/webapps/
 		ls
-	fi
-fi
-
-case "$1" in
-    "cb")
-		echo 'Remove wars callcenter and backoffice'
+       echo 'Remove wars callcenter and backoffice'
         #Remove wars
 		rm -rf callcenter.war
         rm -rf backoffice.war 
@@ -47,9 +41,16 @@ case "$1" in
 		#Let me see de log babe
 		echo "Hey! You should see the logs"
 		tail -f /usr/local/tomcat7/logs/catalina.out
-        ;;
-    "b")
-		echo 'Remove war backoffice'
+      ;;
+    b)
+#Stop service apache for make the backups database
+		echo "Go to stop service tomcat"
+		service tomcat stop
+		#Go to directory that contains apps
+		echo 'Go to directory webapps'
+		cd /usr/local/tomcat7/webapps/
+		ls
+       echo 'Remove war backoffice'
         #Remove wars
         rm -rf backoffice.war 
         ls
@@ -68,9 +69,16 @@ case "$1" in
 		#Let me see de log babe
 		echo "Hey! You should see the logs"
 		tail -f /usr/local/tomcat7/logs/catalina.out
-        ;;
-    "c")
-        echo 'Remove war callcenter'
+      ;;
+    c)
+		#Stop service apache for make the backups database
+		echo "Go to stop service tomcat"
+		service tomcat stop
+		#Go to directory that contains apps
+		echo 'Go to directory webapps'
+		cd /usr/local/tomcat7/webapps/
+		ls
+		echo 'Remove war callcenter'
         #Remove wars
 		rm -rf callcenter.war
         ls
@@ -89,14 +97,16 @@ case "$1" in
 		#Let me see de log babe
 		echo "Hey! You should see the logs"
 		tail -f /usr/local/tomcat7/logs/catalina.out
-        ;;
-    *)
+       
+      ;;
+    \?)
         echo "You should introduce the parameter for rollback application:"
         echo "cb : is for rollback in callcenter and backoffice"
         echo "c : is for rollback in callcenter"
         echo "b : is for rollback in callcenter"
         echo "Example : ./deploy.sh cb"
-        ;; 
-esac
+      ;;
+  esac
+done
 
 echo #
